@@ -28,6 +28,7 @@ public class Order {
 	private Long orderId;
 	private String codeOrder;
 	private Date createOrder;
+	private String describe;
 	private String address;
 	@ManyToOne
 	@JoinColumn(name="userId")
