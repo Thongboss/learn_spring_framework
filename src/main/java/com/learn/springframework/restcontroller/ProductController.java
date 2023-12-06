@@ -54,14 +54,14 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{productId}")
-	public ProductDto getOneProduct(@PathVariable Long productId) {
+	public Product getOneProduct(@PathVariable Long productId) {
 		Product pro = productService.findById(productId).get();
 		if(pro == null) {
 			return null;
 		}
-		ProductDto dto = modelMapper.map(pro, ProductDto.class);
-		dto.setCategoryId(pro.getCategory().getCategoryId());
-		return dto;
+//		ProductDto dto = modelMapper.map(pro, ProductDto.class);
+//		dto.setCategoryId(pro.getCategory().getCategoryId());
+		return pro;
 	}
 	
 	@PostMapping("/list")
