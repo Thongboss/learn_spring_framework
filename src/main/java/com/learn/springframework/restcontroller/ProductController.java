@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import com.learn.springframework.entities.Product;
 import com.learn.springframework.entities.dtos.ProductDto;
 import com.learn.springframework.service.CategoryService;
 import com.learn.springframework.service.ProductService;
+import com.learn.springframework.service.Impl.PageRequestImpl;
 
 @RestController
 @RequestMapping("/products")
@@ -29,6 +33,9 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+//	@Autowired
+//	private PageRequestImpl pageRequest;
 	
 	@PostMapping
 	public ProductDto addProduct(@RequestBody ProductDto dto) {
@@ -91,4 +98,24 @@ public class ProductController {
 		}
 		return dto;
 	}
+	
+	@GetMapping("/page") // hướng giải quyết này có vẻ chưa tối ưu khi chưa thể lấy ra giá trị đầu tiên trong DB
+	public Page<Product> getPageProduct(){
+		Pageable page = new PageRequestImpl(10, 1);
+		Page<Product> pageProduct = productService.findAll(page);
+		return pageProduct;
+	}
+	
+	@GetMapping("/page1")
+	public List<ProductDto> getPageProduct1(){
+		Page<Product> pageProduct = productService.findAll(PageRequest.of(0, 5));
+		List<Product> lisP = pageProduct.getContent();
+		List<ProductDto> list = new ArrayList<>();
+		lisP.forEach(e -> {
+			ProductDto dto = modelMapper.map(e, ProductDto.class);
+			list.add(dto);
+		});
+		return list;
+	}
+	
 }

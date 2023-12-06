@@ -24,11 +24,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public <S extends Product> List<S> saveAll(Iterable<S> entities) {
-		return productRepository.saveAll(entities);
-	}
-
-	@Override
 	public List<Product> findAll(Sort sort) {
 		return productRepository.findAll(sort);
 	}
@@ -36,11 +31,6 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Page<Product> findAll(Pageable pageable) {
 		return productRepository.findAll(pageable);
-	}
-
-	@Override
-	public <S extends Product> List<S> saveAllAndFlush(Iterable<S> entities) {
-		return productRepository.saveAllAndFlush(entities);
 	}
 
 	@Override
@@ -71,6 +61,12 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void delete(Product entity) {
 		productRepository.delete(entity);
+	}
+
+	@Override
+	public <S extends Product> List<S> saveAll(Iterable<S> entities) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

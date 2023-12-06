@@ -23,7 +23,6 @@ public interface ProductService {
 
 	List<Product> findAll();
 
-	<S extends Product> List<S> saveAllAndFlush(Iterable<S> entities);
 
 	Page<Product> findAll(Pageable pageable);
 
